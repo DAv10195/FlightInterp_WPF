@@ -11,9 +11,9 @@ namespace FlightSimulator.ViewModels
 {
     public class FlightBoardViewModel : BaseNotify
     {
-        private MainWinMod model;
+        private IMainWinModel model;
         //CTOR
-        public FlightBoardViewModel(MainWinMod m)
+        public FlightBoardViewModel(IMainWinModel m)
         {
             model = m;
         }

@@ -18,7 +18,7 @@ using FlightSimulator.Model.EventArgs;
 
 namespace FlightSimulator.Model
 {
-    public class MainWinMod : BaseNotify
+    public class MainWinMod : BaseNotify, IMainWinModel
     {
         private TextBox AutoPilotBox;
         private double lon;
@@ -39,7 +39,7 @@ namespace FlightSimulator.Model
         Dictionary<string, string> paths;
         private volatile Queue<ICommand> exec;
         //CTOR
-        public MainWinMod(Joystick j, TextBox tb)
+        public MainWinMod(TextBox tb)
         {
             this.AutoPilotBox = tb;
             this.listener = null;

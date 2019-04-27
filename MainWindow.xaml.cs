@@ -25,18 +25,21 @@ namespace FlightSimulator
     /// </summary>
     public partial class MainWindow : Window
     {
-        MainWindowViewModel vm;
+        ManuelPilotViewModel vm;
         //CTOR
         public MainWindow()
         {
             InitializeComponent();
-            MainWinMod m = new MainWinMod(joystick, AutoPilotBox);
-            vm = new MainWindowViewModel(m, joystick);
+            IMainWinModel m = new MainWinMod(AutoPilotBox);
+            vm = new ManuelPilotViewModel(m, joystick);
             FlightBoardViewModel fvm = new FlightBoardViewModel(m);
+            AutoPilotViewModel avm = new AutoPilotViewModel(m);
             flightBoard.VM = fvm;
             m.PropertyChanged += fvm.Model_PropertyChanged;
             joystick.Moved += vm.JoyStick_Handler;
             this.DataContext = vm;
+            autoPilotButt.DataContext = avm;
+            clearButt.DataContext = avm;
             Application.Current.MainWindow.Closing += new System.ComponentModel.CancelEventHandler(MainWindow_Closing);
         }
 

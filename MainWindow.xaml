@@ -132,8 +132,8 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Button Margin="5" Grid.Column="0" Grid.Row="1" Content="OK" HorizontalAlignment="Center" Command="{Binding AutoPilotCommand}"/>
-                    <Button Margin="5" Grid.Column="1" Grid.Row="1" Content="Clear" HorizontalAlignment="Center" Command="{Binding ClearCommand}"/>
+                    <Button x:Name="autoPilotButt" Margin="5" Grid.Column="0" Grid.Row="1" Content="OK" HorizontalAlignment="Center" Command="{Binding AutoPilotCommand}"/>
+                    <Button x:Name="clearButt" Margin="5" Grid.Column="1" Grid.Row="1" Content="Clear" HorizontalAlignment="Center" Command="{Binding ClearCommand}"/>
                     <TextBox x:Name="AutoPilotBox" Margin="7" Grid.Row="0" Grid.ColumnSpan="2" TextWrapping="Wrap"
                            VerticalScrollBarVisibility="Auto" AcceptsReturn="True" TextChanged="decideBoxColor"/>
                 </Grid>
