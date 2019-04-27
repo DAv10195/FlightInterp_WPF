@@ -11,6 +11,12 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using FlightSimulator.Views;
+using FlightSimulator.Model;
+using FlightSimulator.ViewModels.Windows;
+using FlightSimulator.Model.Interface;
+using FlightSimulator.ViewModels;
+using System.ComponentModel;
 
 namespace FlightSimulator
 {
@@ -18,16 +24,37 @@ namespace FlightSimulator
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
-    {   //CTOR
+    {
+        MainWindowViewModel vm;
+        //CTOR
         public MainWindow()
         {
             InitializeComponent();
+            MainWinMod m = new MainWinMod(joystick, AutoPilotBox);
+            vm = new MainWindowViewModel(m, joystick);
+            FlightBoardViewModel fvm = new FlightBoardViewModel(m);
+            flightBoard.VM = fvm;
+            m.PropertyChanged += fvm.Model_PropertyChanged;
+            joystick.Moved += vm.JoyStick_Handler;
+            this.DataContext = vm;
+            Application.Current.MainWindow.Closing += new System.ComponentModel.CancelEventHandler(MainWindow_Closing);
         }
-        //opens the Settings window
-        private void Sett_Btn_Click(object sender, RoutedEventArgs e)
+
+        void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            FlightSimulator.Views.SettingsWindow settWin = new FlightSimulator.Views.SettingsWindow();
-            settWin.Show();
+            vm.ExitCommand.Execute(null);
+        }
+
+        private void decideBoxColor(object sender, TextChangedEventArgs args)
+        {
+            if (AutoPilotBox.Text != "")
+            {
+                AutoPilotBox.Background = Brushes.Pink;
+            }
+            else
+            {
+                AutoPilotBox.Background = Brushes.White;
+            }
         }
     }
 }

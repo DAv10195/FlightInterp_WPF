@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FlightSimulator.Views"
         mc:Ignorable="d"
-        Title="FlightSimulator" Height="600" Width="1000">
+        Title="FlightSimulator" Height="591" Width="969" ResizeMode="CanMinimize">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -18,72 +18,102 @@
         <TextBlock FontWeight="Bold" FontSize="20" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center">Flight Simulator</TextBlock>
         <Grid Margin="7" Grid.Row="1" Grid.ColumnSpan="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="29*"/>
+                <RowDefinition Height="510*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="9*"/>
+                <ColumnDefinition Width="98*"/>
+                <ColumnDefinition Width="106*"/>
             </Grid.ColumnDefinitions>
-            <Button Margin="5" Grid.Column="0" Content="Connect" HorizontalAlignment="Center"/>
-            <Button Margin="5" Grid.Column="1" Content="Settings" HorizontalAlignment="Center" Click="Sett_Btn_Click"/>
-            <local:FlightBoard Grid.ColumnSpan="2" Grid.Row="1"/>
+            <Button Margin="93,1,0,8.8" Content="Connect" HorizontalAlignment="Left" Command="{Binding ConnectCommand}" RenderTransformOrigin="0.5,0.5" Grid.Column="1">
+                <Button.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="-0.11"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Button.RenderTransform>
+            </Button>
+            <Button Margin="44.2,1,50.8,8.8" Grid.Column="2" Content="Settings" HorizontalAlignment="Center" Command="{Binding OpenSettCommand}"/>
+            <local:FlightBoard x:Name="flightBoard" Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Right"
+                               Margin="0,0.2,-12.8,10.2" Width="466" Grid.Column="1"/>
         </Grid>
-        <TabControl BorderThickness="0" Margin="24.6,28.6,3.6,7.4"  Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1">
+        <TabControl BorderThickness="0" Margin="24.8,28.6,0,10.4"  Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1">
             <TabItem Header="Manual">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock FontWeight="Bold" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="2.228,-2.304">
+                    <TextBlock FontWeight="Bold" FontSize="13" VerticalAlignment="Center" RenderTransformOrigin="2.228,-2.304">
                         <TextBlock.LayoutTransform>
                             <RotateTransform Angle="90"/>
                         </TextBlock.LayoutTransform>
                         &lt;- throttle -&gt;
                     </TextBlock>
-                    <Slider x:Name="throttleSlider" Margin="5,5,5,120.2" Minimum="-1" Maximum="1" Ticks="-1, -0.9, -0.8, -0.7, -0.6, -0.5, -0.4, -0.3, -0.2, -0.1, 0, 0.1, 
-                            0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1" Value="0" TickPlacement="BottomRight" HorizontalAlignment="Left" VerticalAlignment="Stretch"
-                            Orientation="Vertical">
+                    <Slider x:Name="throttleSlider" Margin="5,29,5,96.2" Minimum="-1" Maximum="1" Ticks="-1, -0.9, -0.8, -0.7, -0.6, -0.5, -0.4, -0.3, -0.2, -0.1, 0, 0.1, 
+                            0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1" TickPlacement="BottomRight" HorizontalAlignment="Left" VerticalAlignment="Stretch"
+                            Orientation="Vertical" Value="{Binding Throttle}">
                     </Slider>
-                    <TextBlock FontWeight="Bold" FontSize="20" VerticalAlignment="Top" RenderTransformOrigin="2.228,-2.304"
-                               Text="0">
-                    </TextBlock>
-                    <StackPanel HorizontalAlignment="Stretch" Margin="0,0,0,44.2">
-                        <TextBlock Margin="5" FontWeight="Bold" FontSize="14" HorizontalAlignment="Center">
+                    <StackPanel HorizontalAlignment="Stretch" Margin="0,0,0,10.2">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock FontWeight="Bold" FontSize="10" Grid.Row="0" Grid.Column="0" RenderTransformOrigin="2.228,-2.304"
+                               Text="{Binding ElementName=throttleSlider, Path=Value}">
+                            </TextBlock>
+                            <TextBlock HorizontalAlignment="Center" FontWeight="Bold" FontSize="10" Grid.Row="0" Grid.Column="1"  RenderTransformOrigin="2.228,-2.304"
+                               Text="{Binding ElementName=joystick, Path=Aileron}">
+                            </TextBlock>
+                        </Grid>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Margin="0,0,24.2,9.2" FontWeight="Bold" FontSize="13" HorizontalAlignment="Right" Grid.Column="1">
                             &lt;- aileron -&gt;
-                        </TextBlock>
-                        <local:Joystick/>
+                            </TextBlock>
+                            <TextBlock HorizontalAlignment="Right" FontWeight="Bold" FontSize="10" Grid.Row="0" Grid.Column="2"  RenderTransformOrigin="2.228,-2.304"
+                               Text="{Binding ElementName=joystick, Path=Elevator}">
+                            </TextBlock>
+                        </Grid>
+                        <local:Joystick x:Name="joystick"/>
                         <Slider x:Name="rudderSlider" Margin="5" Minimum="-1" Maximum="1" Ticks="-1, -0.9, -0.8, -0.7, -0.6, -0.5, -0.4, -0.3, -0.2, -0.1, 0, 0.1, 
-                            0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1" Value="0" TickPlacement="BottomRight"/>
-                        <TextBlock Margin="5" FontWeight="Bold" FontSize="14" HorizontalAlignment="Center">
+                            0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1" TickPlacement="BottomRight" Value="{Binding Rudder}"/>
+                        <TextBlock Margin="5" FontWeight="Bold" FontSize="13" HorizontalAlignment="Center">
                             &lt;- rudder -&gt;
+                        </TextBlock>
+                        <TextBlock FontWeight="Bold" FontSize="10"  RenderTransformOrigin="2.228,-2.304"
+                               Text="{Binding ElementName=rudderSlider, Path=Value}" Height="41" HorizontalAlignment="Center">
                         </TextBlock>
                     </StackPanel>
                     <StackPanel>
-                        <TextBlock FontWeight="Bold" FontSize="20"  RenderTransformOrigin="2.228,-2.304"
-                               Text="0.0">
-                        </TextBlock>
-                        <TextBlock FontWeight="Bold" FontSize="20"  RenderTransformOrigin="2.228,-2.304"
+                        <TextBlock RenderTransformOrigin="2.228,-2.304"
                                Text="                                                             ">
                             <TextBlock.LayoutTransform>
                                 <RotateTransform Angle="90"/>
                             </TextBlock.LayoutTransform>
                         </TextBlock>
-                        <TextBlock FontWeight="Bold" FontSize="20"  RenderTransformOrigin="2.228,-2.304"
-                               Text="0">
-                        </TextBlock>
                     </StackPanel>
                     <StackPanel>
-                        <TextBlock FontWeight="Bold" FontSize="20"  RenderTransformOrigin="2.228,-2.304"
+                        <TextBlock FontWeight="Bold" RenderTransformOrigin="2.228,-2.304"
                                Text="">
                         </TextBlock>
-                        <TextBlock FontWeight="Bold" FontSize="20"  RenderTransformOrigin="2.228,-2.304"
-                               Text="0.0">
-                        </TextBlock>
-                        <TextBlock FontWeight="Bold" FontSize="20"  RenderTransformOrigin="2.228,-2.304"
-                               Text="                         ">
+                        <TextBlock FontWeight="Bold" RenderTransformOrigin="2.228,-2.304"
+                               Text="                                                     ">
                             <TextBlock.LayoutTransform>
                                 <RotateTransform Angle="90"/>
                             </TextBlock.LayoutTransform>
                         </TextBlock>
-                        <TextBlock Margin="5" FontWeight="Bold" FontSize="14" VerticalAlignment="Center">
+                        <TextBlock FontWeight="Bold" FontSize="13" VerticalAlignment="Center">
                             <TextBlock.LayoutTransform>
                                 <RotateTransform Angle="90"/>
                             </TextBlock.LayoutTransform>
@@ -102,9 +132,10 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Button Margin="5" Grid.Column="0" Grid.Row="1" Content="OK" HorizontalAlignment="Center"/>
-                    <Button Margin="5" Grid.Column="1" Grid.Row="1" Content="Clear" HorizontalAlignment="Center"/>
-                    <TextBox Margin="7" Grid.Row="0" Grid.ColumnSpan="2" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" AcceptsReturn="True"/>
+                    <Button Margin="5" Grid.Column="0" Grid.Row="1" Content="OK" HorizontalAlignment="Center" Command="{Binding AutoPilotCommand}"/>
+                    <Button Margin="5" Grid.Column="1" Grid.Row="1" Content="Clear" HorizontalAlignment="Center" Command="{Binding ClearCommand}"/>
+                    <TextBox x:Name="AutoPilotBox" Margin="7" Grid.Row="0" Grid.ColumnSpan="2" TextWrapping="Wrap"
+                           VerticalScrollBarVisibility="Auto" AcceptsReturn="True" TextChanged="decideBoxColor"/>
                 </Grid>
             </TabItem>
         </TabControl>

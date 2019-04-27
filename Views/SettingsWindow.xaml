@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FlightSimulator.Views"
         mc:Ignorable="d"
-        Title="Settings" Height="120" Width="400">
+        Title="Settings" Height="120" Width="400" ResizeMode="CanMinimize">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -20,10 +20,10 @@
         <TextBlock FontSize="14" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center">Flight Server IP:</TextBlock>
         <TextBlock FontSize="14" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center">Flight Info Port:</TextBlock>
         <TextBlock FontSize="14" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center">Flight Command Port:</TextBlock>
-        <TextBox Grid.Row="0" Grid.Column="1"/>
-        <TextBox Grid.Row="1" Grid.Column="1"/>
-        <TextBox Grid.Row="2" Grid.Column="1"/>
-        <Button Margin="5" Grid.Column="0" Grid.Row="3" Content="OK" HorizontalAlignment="Center"/>
-        <Button Margin="5" Grid.Column="1" Grid.Row="3" Content="Cancel" HorizontalAlignment="Center"/>
+        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Path=FlightServerIP}"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=FlightInfoPort}"/>
+        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Path=FlightCommandPort}"/>
+        <Button Margin="5" Grid.Column="0" Grid.Row="3" Content="OK" HorizontalAlignment="Center" Click="OK_Btn_Click"/>
+        <Button Margin="5" Grid.Column="1" Grid.Row="3" Content="Cancel" HorizontalAlignment="Center" Click="Cancel_Btn_Click"/>
     </Grid>
 </Window>

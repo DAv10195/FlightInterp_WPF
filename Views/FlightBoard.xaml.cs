@@ -17,6 +17,7 @@ using FlightSimulator.Model;
 using FlightSimulator.ViewModels;
 using Microsoft.Research.DynamicDataDisplay;
 using Microsoft.Research.DynamicDataDisplay.DataSources;
+using FlightSimulator.ViewModels.Windows;
 
 namespace FlightSimulator.Views
 {
@@ -26,9 +27,24 @@ namespace FlightSimulator.Views
     public partial class FlightBoard : UserControl
     {
         ObservableDataSource<Point> planeLocations = null;
+        private FlightBoardViewModel vm;
+        //CTOR
         public FlightBoard()
         {
             InitializeComponent();
+            this.vm = null;
+        }
+
+        public FlightBoardViewModel VM
+        {
+            set
+            {   //only once!
+                if (vm == null && value != null)
+                {
+                    vm = value;
+                    vm.PropertyChanged += Vm_PropertyChanged;
+                }
+            }
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -42,11 +58,19 @@ namespace FlightSimulator.Views
 
         private void Vm_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if(e.PropertyName.Equals("Lat") || e.PropertyName.Equals("Lon"))
+            FlightBoardViewModel fvm = sender as FlightBoardViewModel;
+            if (fvm != null && fvm == vm)
             {
-                Point p1 = new Point(0,0);            // Fill here!
-                planeLocations.AppendAsync(Dispatcher, p1);
-            }
+                if (e.PropertyName.Equals("Lat") || e.PropertyName.Equals("Lon"))
+                {
+                    Point p1 = new Point(vm.Lat, vm.Lon);
+                    if (planeLocations.Collection.Contains<Point>(p1))
+                    {
+                        return;
+                    }
+                    planeLocations.AppendAsync(Dispatcher, p1);
+                }
+            } 
         }
 
     }
