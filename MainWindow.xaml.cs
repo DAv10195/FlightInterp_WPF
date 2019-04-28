@@ -26,6 +26,7 @@ namespace FlightSimulator
     public partial class MainWindow : Window
     {
         ManuelPilotViewModel vm;
+        OtherStuffViewModel osvm;
         //CTOR
         public MainWindow()
         {
@@ -34,18 +35,21 @@ namespace FlightSimulator
             vm = new ManuelPilotViewModel(m, joystick);
             FlightBoardViewModel fvm = new FlightBoardViewModel(m);
             AutoPilotViewModel avm = new AutoPilotViewModel(m);
+            osvm = new OtherStuffViewModel(m);
             flightBoard.VM = fvm;
             m.PropertyChanged += fvm.Model_PropertyChanged;
             joystick.Moved += vm.JoyStick_Handler;
             this.DataContext = vm;
             autoPilotButt.DataContext = avm;
             clearButt.DataContext = avm;
+            connectButt.DataContext = osvm;
+            settButt.DataContext = osvm;
             Application.Current.MainWindow.Closing += new System.ComponentModel.CancelEventHandler(MainWindow_Closing);
         }
 
         void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            vm.ExitCommand.Execute(null);
+            osvm.ExitCommand.Execute(null);
         }
 
         private void decideBoxColor(object sender, TextChangedEventArgs args)

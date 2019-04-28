@@ -23,30 +23,6 @@ namespace FlightSimulator.ViewModels.Windows
             joystick = j;
         }
 
-        public ICommand OpenSettCommand
-        {
-            get
-            {
-                return model.OpenSettCommand;
-            }
-        }
-
-        public ICommand ConnectCommand
-        {
-            get
-            {
-                return model.ConnectCommand;
-            }
-        }
-
-        public ICommand ExitCommand
-        {
-            get
-            {
-                return model.ExitCommand;
-            }
-        }
-
         public double Throttle
         {
             set
